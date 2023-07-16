@@ -17,7 +17,16 @@ const planetSchema = new Schema({
 planetSchema.statics.list = async function () {
   return await this.find()
     .populate("characters", ["_id", "name"])
-    .populate("films", ["_id"], "name");
+    .populate("films", ["_id", "name"]);
+};
+
+planetSchema.statics.get = async function (id) {
+  return await this.findById(id)
+    .populate("characters", ["_id", "name"])
+    .populate("films", ["_id", "title"]);
+};
+planetSchema.statics.insert = async function (planet) {
+  return await this.create(planet)
 };
 
 module.exports = planetSchema;
